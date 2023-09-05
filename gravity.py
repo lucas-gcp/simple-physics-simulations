@@ -1,6 +1,7 @@
 import math
 # Implementation of the Body class
 
+
 class Body:
     def __init__(self, xpos, ypos, mass, radius, xspeed, yspeed, xaccel, yaccel):
         self.xpos = xpos
@@ -14,14 +15,18 @@ class Body:
 
     # TODO fix gravitation calculation
     def calc_accel(self, body):
-        xdistance = self.xpos - body.xpos
-        ydistance = self.ypos - body.ypos
+        xdistance = abs(self.xpos - body.xpos)
+        ydistance = abs(self.ypos - body.ypos)
         distance = (xdistance**2 + ydistance**2)**0.5
         accel = 6.67*10**(-11) * (body.mass/distance**2)
-        xangle = math.atan(ydistance/xdistance)
-        yangle = math.atan(xdistance/ydistance)
-        self.xaccel = math.cos(xangle)*accel
-        self.yaccel = math.cos(yangle)*accel
+
+        angle = math.atan2(ydistance, xdistance)
+        xdir = math.copysign(1, self.xpos - body.xpos)
+        ydir = math.copysign(1, self.ypos - body.ypos)
+
+        self.xaccel = math.cos(angle)*accel*xdir
+        self.yaccel = math.sin(angle)*accel*ydir
+        print(ydir, self.yaccel)
 
     def calc_speed(self):
         self.xspeed += self.xaccel
