@@ -26,10 +26,10 @@ while running:
             break
 
     body_1.calc_accel(body_2)
-    body_1.calc_speed()
-    body_1.move()
     body_2.calc_accel(body_1)
+    body_1.calc_speed()
     body_2.calc_speed()
+    body_1.move()
     body_2.move()
 
     screen.fill('black')
