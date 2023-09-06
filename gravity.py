@@ -3,15 +3,15 @@ import math
 
 
 class Body:
-    def __init__(self, xpos, ypos, mass, radius, xspeed, yspeed, xaccel, yaccel):
+    def __init__(self, xpos, ypos, mass, radius, xspeed, yspeed, xaccel_in, yaccel_in):
         self.xpos = xpos
         self.ypos = ypos
         self.mass = mass
         self.radius = radius
         self.xspeed = xspeed
         self.yspeed = yspeed
-        self.xaccel = xaccel
-        self.yaccel = yaccel
+        self.xaccel = self.xaccel_in = xaccel_in
+        self.yaccel = self.yaccel_in = yaccel_in
 
     def calc_accel(self, body):
         xdistance = abs(self.xpos - body.xpos)*10**9
@@ -23,8 +23,12 @@ class Body:
         xdir = math.copysign(1, (self.xpos - body.xpos)*(-1))
         ydir = math.copysign(1, (self.ypos - body.ypos)*(-1))
 
-        self.xaccel = math.cos(angle)*accel*xdir
-        self.yaccel = math.sin(angle)*accel*ydir
+        self.xaccel += math.cos(angle)*accel*xdir
+        self.yaccel += math.sin(angle)*accel*ydir
+
+    def clear_accel(self):
+        self.xaccel = self.xaccel_in
+        self.yaccel = self.yaccel_in
 
     def calc_speed(self):
         self.xspeed += self.xaccel
