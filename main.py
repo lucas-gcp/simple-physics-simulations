@@ -15,8 +15,8 @@ screen = pygame.display.set_mode([screenWidth, screenHeight])
 clock = pygame.time.Clock()
 
 # Test bodies
-body_1 = Body(150, 150, 10**12, 3, 1.5, 0, 0, 0)
-body_2 = Body(200, 200, 10**12, 3, 0, 0, 0, 0)
+body_1 = Body(500, 649.6, 5.9722*10**24, 3, 2.978, 0, 0, 0)
+body_2 = Body(500, 500, 1.98*10**31, 5, 0, 0, 0, 0)
 
 running = True
 while running:
@@ -34,8 +34,8 @@ while running:
 
     screen.fill('black')
     # Test the draw_body function
-    draw_body(screen, 'white', body_1)
-    draw_body(screen, 'red', body_2)
+    draw_body(screen, 'blue', body_1)
+    draw_body(screen, 'yellow', body_2)
     pygame.display.update()
     clock.tick(60)
 
