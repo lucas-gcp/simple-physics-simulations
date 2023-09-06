@@ -21,12 +21,11 @@ class Body:
         accel = 6.67*10**(-11) * (body.mass/distance**2)
 
         angle = math.atan2(ydistance, xdistance)
-        xdir = math.copysign(1, self.xpos - body.xpos)
-        ydir = math.copysign(1, self.ypos - body.ypos)
+        xdir = math.copysign(1, (self.xpos - body.xpos)*(-1))
+        ydir = math.copysign(1, (self.ypos - body.ypos)*(-1))
 
         self.xaccel = math.cos(angle)*accel*xdir
         self.yaccel = math.sin(angle)*accel*ydir
-        print(ydir, self.yaccel)
 
     def calc_speed(self):
         self.xspeed += self.xaccel
