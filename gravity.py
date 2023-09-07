@@ -14,8 +14,8 @@ class Body:
         self.yaccel = self.yaccel_in = yaccel_in
 
     def calc_accel(self, body):
-        xdistance = abs(self.xpos - body.xpos)
-        ydistance = abs(self.ypos - body.ypos)
+        xdistance = abs(self.xpos - body.xpos)*10**9
+        ydistance = abs(self.ypos - body.ypos)*10**9
         distance = (xdistance**2 + ydistance**2)**0.5
         accel = 6.67*10**(-11) * (body.mass/distance**2)
 
