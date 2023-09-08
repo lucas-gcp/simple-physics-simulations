@@ -33,13 +33,16 @@ clock = pygame.time.Clock()
 earth = pygame.image.load(R".\resources\earth.png")
 earth = pygame.transform.scale(earth, (15, 15))
 
+visualization_scale = 1
+simulation_scale = 10**9
+
 bodies = []
 # Test bodies
-body_1 = Body(500, 649.6, 5.9722*10**24, 2.978, 0, 0, 0, 5515)
+body_1 = Body(500, 649.6, 5.9722*10**24, 2.978, 0, 0, 0, 5515, visualization_scale, simulation_scale)
 bodies.append(body_1)
-body_2 = Body(500, 500, 1.98*10**31, 0, 0, 0, 0, 1408)
+body_2 = Body(500, 500, 1.98*10**31, 0, 0, 0, 0, 1408, visualization_scale, simulation_scale)
 bodies.append(body_2)
-body_3 = Body(500, 650, 7.34767309*10**22, 2.95, 0, 0, 0, 3344)
+body_3 = Body(500, 650, 7.34767309*10**22, 2.95, 0, 0, 0, 3344, visualization_scale, simulation_scale)
 bodies.append(body_3)
 
 running = True
