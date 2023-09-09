@@ -3,7 +3,8 @@ import math
 
 
 class Body:
-    def __init__(self, xpos, ypos, mass, xspeed, yspeed, xaccel_in, yaccel_in, density, visualizaton_scale, simulation_scale):
+    def __init__(self, xpos, ypos, mass, xspeed, yspeed, xaccel_in, yaccel_in, density, visualizaton_scale,
+                 simulation_scale):
         self.visualization_scale = visualizaton_scale
         self.simulation_scale = simulation_scale
         self.xpos_calc = xpos
@@ -18,8 +19,6 @@ class Body:
         self.ydistance = (ypos - 500)*self.visualization_scale
         self.xpos = self.xdistance + 500
         self.ypos = self.ydistance + 500
-        print(self.xdistance, self.ydistance)
-
 
     def calc_accel(self, body):
         xdistance = abs(self.xpos_calc - body.xpos_calc)*self.simulation_scale
