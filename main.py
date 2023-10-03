@@ -1,5 +1,4 @@
-#essa pagina sera um menu do pygame onde o user podera escolher qual simulacao ele deseja invocar
-#se ele quiser invocar o evento da gravidade:
+#main.py will be the pygame menu to select (through GUI) the requested simulation
 from gravitycalculations import Body
 
 simulationlist = ["gravity", "collisions"]
@@ -7,6 +6,7 @@ print(simulationlist)
 
 indexSimulation = input("Wich simulation to start? ")
 
+#if user wants to evoke gravity simulation:
 if indexSimulation == "gravity":
     with open("gravityevent.py", "r") as file:
         gravityEvent = file.read()
