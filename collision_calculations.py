@@ -1,3 +1,5 @@
+import pygame
+
 class Block:
     def __init__(self, xpos, ypos, xsize, ysize, speed, mass):
         self.xpos = xpos
@@ -6,3 +8,5 @@ class Block:
         self.ysize = ysize
         self.speed = speed
         self.mass = mass
+        self.surface = pygame.Surface((self.xsize, self.ysize))
+        self.rect = self.surface.get_rect(topright=(self.xpos, self.ypos))
