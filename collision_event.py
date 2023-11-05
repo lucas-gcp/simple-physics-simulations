@@ -4,7 +4,7 @@ from collision_calculations import Block
 
 
 def config_block(block):
-    pygame.Surface.fill(block.surface, 'red')
+    pygame.Surface.fill(block.surface, block.color)
     block.rect = block.surface.get_rect(topright=(block.xpos, block.ypos))
 
 
@@ -35,13 +35,13 @@ def collision_run():
                                         (WIDTH, HEIGHT))
 
     # Block1 configs
-    block1 = Block(WIDTH/4, HEIGHT / 2 - 55, 50, 50, 2, 2)
+    block1 = Block(WIDTH/4, HEIGHT / 2 - 55, 50, 50, 2, 2, 'red')
     config_block(block1)
 
     momentum_block1 = block1.mass * block1.speed
 
     # Block2 configs
-    block2 = Block(WIDTH - WIDTH/4, HEIGHT/2 - 55, 50, 50, 4, 1)
+    block2 = Block(WIDTH - WIDTH/4, HEIGHT/2 - 55, 50, 50, 2, 2, 'black')
     config_block(block2)
 
     momentum_block2 = block2.mass * block2.speed
@@ -76,5 +76,5 @@ def collision_run():
 
         pygame.display.update()
 
-
 pygame.quit()
+
