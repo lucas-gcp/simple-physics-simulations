@@ -11,3 +11,4 @@ class Block:
         self.surface = pygame.Surface((self.xsize, self.ysize))
         self.rect = self.surface.get_rect(topright=(self.xpos, self.ypos))
         self.color = color
+

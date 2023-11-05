@@ -1,5 +1,6 @@
-import pygame
+import numpy as np
 import os
+import pygame
 from collision_calculations import Block
 
 
@@ -9,17 +10,17 @@ def config_block(block):
 
 
 def update_block(WIN, block):
-    block.rect.x += -block.speed
+    block.rect.x += block.speed
     WIN.blit(block.surface, block.rect)
 
 
-def calculate_velocity(block1, block2):
-    block1_speed_after = abs((((block1.mass - block2.mass) / (block1.mass + block2.mass)) * block1.speed) + (
-        ((2 * block2.mass) / (block1.mass + block2.mass)) * block2.speed))
-    block2_speed_after = abs(
-        ((block1.mass * block1.speed + block2.mass * block2.speed) - block1.mass * block1_speed_after) / block2.mass)
-    block1.speed = -block1_speed_after
-    block2.speed = -block2_speed_after
+def calculate_velocity(block1, block2, collision_coefficient):
+    A = np.array([[block1.mass, block2.mass], [-1, 1]])
+    B = np.array([[block1.mass * block1.speed + block2.mass * block2.speed],
+                  [collision_coefficient * (block1.speed - block2.speed)]])
+    result = (np.linalg.solve(A, B))
+    block1.speed = float(result[0])
+    block2.speed = float(result[1])
 
 
 def collision_run():
@@ -35,13 +36,13 @@ def collision_run():
                                         (WIDTH, HEIGHT))
 
     # Block1 configs
-    block1 = Block(WIDTH/4, HEIGHT / 2 - 55, 50, 50, 2, 2, 'red')
+    block1 = Block(WIDTH/4, HEIGHT / 2 - 55, 50, 50, 12, 0.5, 'red')
     config_block(block1)
 
     momentum_block1 = block1.mass * block1.speed
 
     # Block2 configs
-    block2 = Block(WIDTH - WIDTH/4, HEIGHT/2 - 55, 50, 50, 2, 2, 'black')
+    block2 = Block(WIDTH - WIDTH/4, HEIGHT/2 - 55, 50, 50, -1, 3, 'black')
     config_block(block2)
 
     momentum_block2 = block2.mass * block2.speed
@@ -57,20 +58,14 @@ def collision_run():
 
         WIN.blit(background, (0, 0))
 
-        # Blit block 1
-        block1.rect.x += block1.speed
-        WIN.blit(block1.surface, block1.rect)
+        # Blit blocks
+        update_block(WIN, block1)
+        update_block(WIN, block2)
 
-        # Blit block 2
-        block2.rect.x += -block2.speed
-        WIN.blit(block2.surface, block2.rect)
-
-        trial = 0
-        if block1.rect.colliderect(block2.rect) and trial == 0:
-            trial = 1
+        if block1.rect.colliderect(block2.rect):
             print('Block 1 Speed: ', block1.speed)
             print('Block 2 Speed: ', block2.speed)
-            calculate_velocity(block1, block2)
+            calculate_velocity(block1, block2, collision_coefficient=1)
             print('Block 1 Speed after: ', block1.speed)
             print('Block 2 Speed after: ', block2.speed)
 
