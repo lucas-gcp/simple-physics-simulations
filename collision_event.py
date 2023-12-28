@@ -6,7 +6,7 @@ from collision_calculations import Block
 
 def config_block(block):
     pygame.Surface.fill(block.surface, block.color)
-    block.rect = block.surface.get_rect(topright=(block.xpos, block.ypos))
+    block.rect = block.surface.get_rect(topright=(block.xpos, block.ypos)) #redundance???
 
 
 def update_block(WIN, block):
